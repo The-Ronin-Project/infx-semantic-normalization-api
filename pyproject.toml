@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "infx-mapping"
+version = "0.1.0"
+description = "INFX Mapping Service"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+flask = "^3.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
