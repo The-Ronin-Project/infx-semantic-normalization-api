@@ -5,4 +5,4 @@ app = Flask(__name__)
 
 @app.get("/ping")
 def ping():
-    return "{pong}"
+    return "pong", 200

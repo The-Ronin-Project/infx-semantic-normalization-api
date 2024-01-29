@@ -1,9 +1,11 @@
-# infx-internal-tools
+# infx-mapping
 ![Generic badge](https://img.shields.io/badge/python-3.9-blue)
 ![Generic badge](https://img.shields.io/badge/code%20style-black-000000.svg)
 
+INFX Mapping Service. Implements a REST API for code mapping
 
-> Note: This readme was copied from infx-internal-tools and still needs some clean up and fine-tuning
+> Note: This readme was copied from [infx-internal-tools](https://github.com/projectronin/infx-internal-tools) and
+> still needs some clean up and fine-tuning
 
 
 ## Team Conventions
@@ -13,9 +15,14 @@ Our basic convention is INFX-{ticket-number}-lower-case-identifier
 
 ### Project Setup
 
-This project managed by Poetry.
+This project is managed by [Poetry](https://python-poetry.org/).
 
-Use [Pipx](https://github.com/pypa/pipx) to install it.
+Use [Pipx](https://github.com/pypa/pipx) to install Poetry.
+```bash
+brew install pipx
+pipx ensurepath
+```
+
 ```bash
 pipx install poetry
 ```
@@ -23,60 +30,14 @@ For more information, read [the docs](https://python-poetry.org/docs/)
 
 ### Python Versions and Virtualenvs
 
-The version is controlled in the [pyproject.toml](pyproject.toml) `tool.poetry.dependencies` section.
+The version is controlled in the [pyproject.toml](pyproject.toml), `tool.poetry.dependencies` section.
 
 To create/use a virtual env, run
 ```bash
-poetry shell
+poetry env use 3.9.10
 ```
-If you don't have the required Python version installed locally, use PyEnv to download it.
-
-### Install pyenv
-
-`brew install pyenv`
-
-Load pyenv automatically by appending
-the following to ~/.zshrc:
-
-open .zshrc using `open ~/.zshrc`
-
-If the file does not already exist, create it using `touch ~/.zshrc`
-
-Then append the following line to the end of the file.
-
-`eval "$(pyenv init -)"`
-
-To list the all available versions of Python, including Anaconda, Jython, pypy, and stackless, use:
-`$ pyenv install --list`
-
-Then install the desired versions:
-```
-$ pyenv install 3.9.10
-$ pyenv versions
-```
-
-The [pyenv-virtualenv](https://github.com/pyenv/pyenv-virtualenv) plugin can be used to manage virtualenvs.
-
-`brew install pyenv-virtualenv`
-
-Load pyenv virtualenv automatically by appending
-the following to the end of  ~/.zshrc:
-
-`eval "$(pyenv virtualenv-init -)"`
-
-To create a virtualenv for the Python version used with pyenv, run pyenv virtualenv, specifying the Python version you are using and the name of the virtualenv directory. For example,
-
-`$ pyenv virtualenv 3.9.10 infx-internal-tools`
-
-If eval "$(pyenv virtualenv-init -)" is configured in your shell, pyenv-virtualenv will automatically activate/deactivate virtualenvs on entering/leaving directories which contain a .python-version file that contains the name of a valid virtual environment as shown in the output of pyenv virtualenvs (e.g., venv34 or 3.4.3/envs/venv34 in example above) . .python-version files are used by pyenv to denote local Python versions and can be created and deleted with the pyenv local command.
-
-You can also activate and deactivate a pyenv virtualenv manually:
-
-`pyenv activate <name>`
-`pyenv deactivate`
-
-virtualenv should work fine with pipenv
-
+If you don't have the required Python version installed locally, use PyEnv to download and activate it.
+[Read here](https://github.com/projectronin/infx-internal-tools?tab=readme-ov-file#install-pyenv) if you need more information on PyEnv.
 
 ### Setting up a dev environment
 
@@ -84,9 +45,7 @@ virtualenv should work fine with pipenv
 - Docker Desktop
 - Git (can be installed via xcode command line tools, or use GitHub Desktop)
 - PyCharm IDE
-- pgAdmin
-- Postman 
-- Homebrew (https://brew.sh)
+- Postman
 
 
 #### PyCharm setup
@@ -110,9 +69,9 @@ virtualenv should work fine with pipenv
 4. Choose Apply and OK. 
 5. Restart PyCharm
 
-> Note that the Postman `Dev-Local` environment uses port 5000 as the initial value. However, [port 5000 is used by the AirPlay
-> Receiver service on Macbooks](https://developer.apple.com/forums/thread/682332) and may block the application from
-> running locally. Alteration of port configurations may be necessary for local testing.
+> Note that the Postman `Dev-Local` environment uses port 5000 as the initial value. However,
+> [port 5000 is used by the AirPlay Receiver service on Macbooks](https://developer.apple.com/forums/thread/682332)
+> and may block the application from running locally. Alteration of port configurations may be necessary for local testing.
 
 #### Running from the command line
 
@@ -146,7 +105,7 @@ poetry install
 
 #### CLI
 ```bash
-poetry run flask --app infx_mapping.app.app  run
+poetry run flask --app infx_mapping.app.app run
 ```
 
 
@@ -159,18 +118,38 @@ curl localhost:5000/ping
 
 We use [Pytest](https://docs.pytest.org/en/6.2.x/) for automated testing, Postman for manual testing.
 
-We  split integration tests and unit tests into separate directories. Code coverage should be calculated using integration tests. 
+#### Local Container Testing
+* Build the docker image
+  ```bash
+  docker build . -t infx-mapping
+  ```
+* Run the container
+  * Docker
+    ```bash
+      docker run -d -p 127.0.0.1:5000:5000 infx-mapping
+    ```
+  * Docker compose
+    ```bash
+      docker compose up -d
+    ```
+* Test the container
+  * Use postman to run a GET against `localhost:5000/ping` or
+    ```bash
+    curl localhost:5000/ping
+    ```
+* Stop the container
+  * Docker
+    ```bash
+    docker kill <container id>
+    ```
+    You can get the container id from running `docker ps`
+  * Docker compose
+    ```bash
+    docker comopose down
+    ```
 
-Tests are in folders outside the app at the top level of the project. Pytest will discover them. 
 
 
-### Project Structure
 
-Modified frequently:
-- [app](app) - Python application - API endpoints - model-view-controller
-- [test](test) - Python unit tests and supporting JSON data files
-- [integration_tests](integration_tests) - SQL integration tests
 
-Occasional changes:
-- [.github](.github) - GitHub CI/CD workflows
-- Top level project configuration files - [docker-compose.yml](docker-compose.yml), [pull_request_templaet.md](pull_request_templaet.md), [codecov.yml](codecov.yml), [Pipfile](Pipfile), etc.
+
