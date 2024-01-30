@@ -32,7 +32,7 @@ USER ronin:ronin
 
 RUN poetry install
 
-COPY --chown=ronin:ronin infx_mapping ./app
+COPY --chown=ronin:ronin infx_mapping_api ./app
 
 RUN mkdir ./.oci
 

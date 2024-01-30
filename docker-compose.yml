@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   app:
-    image: infx-mapping
+    image: infx-mapping-api
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,7 +12,7 @@ services:
 #    environment:
 #      - FLASK_APP=app
     volumes:
-      - './infx_mapping:/app/app:rw'
+      - './infx_mapping_api:/app/app:rw'
     ports:
       - 5000:5000
   

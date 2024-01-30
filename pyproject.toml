@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "infx-mapping"
+name = "infx-mapping-api"
 version = "0.1.0"
 description = "INFX Mapping Service"
 authors = ["Your Name <you@example.com>"]

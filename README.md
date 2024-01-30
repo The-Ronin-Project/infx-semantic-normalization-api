@@ -1,4 +1,4 @@
-# infx-mapping
+# infx-mapping-api
 ![Generic badge](https://img.shields.io/badge/python-3.9-blue)
 ![Generic badge](https://img.shields.io/badge/code%20style-black-000000.svg)
 
@@ -105,7 +105,7 @@ poetry install
 
 #### CLI
 ```bash
-poetry run flask --app infx_mapping.app.app run
+poetry run flask --app infx_mapping_api.app.app run
 ```
 
 
@@ -121,12 +121,12 @@ We use [Pytest](https://docs.pytest.org/en/6.2.x/) for automated testing, Postma
 #### Local Container Testing
 * Build the docker image
   ```bash
-  docker build . -t infx-mapping
+  docker build . -t infx-mapping-api
   ```
 * Run the container
   * Docker
     ```bash
-      docker run -d -p 127.0.0.1:5000:5000 infx-mapping
+      docker run -d -p 127.0.0.1:5000:5000 infx-mapping-api
     ```
   * Docker compose
     ```bash
