@@ -105,7 +105,7 @@ poetry install
 
 #### CLI
 ```bash
-poetry run flask --app infx_mapping_api.app.app run
+poetry run python -m infx_mapping_api.app
 ```
 
 
@@ -133,9 +133,9 @@ We use [Pytest](https://docs.pytest.org/en/6.2.x/) for automated testing, Postma
       docker compose up -d
     ```
 * Test the container
-  * Use postman to run a GET against `localhost:5000/ping` or
+  * Use postman to run a GET against `localhost:8000/ping` or
     ```bash
-    curl localhost:5000/ping
+    curl localhost:8000/ping
     ```
 * Stop the container
   * Docker
@@ -147,9 +147,6 @@ We use [Pytest](https://docs.pytest.org/en/6.2.x/) for automated testing, Postma
     ```bash
     docker comopose down
     ```
-
-
-
 
 
 

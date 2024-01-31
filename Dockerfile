@@ -2,7 +2,7 @@ ARG PYTHON_VERSION=3.9
 
 FROM docker-proxy.devops.projectronin.io/python:${PYTHON_VERSION}-slim
 
-EXPOSE 5000
+EXPOSE 8000
 
 RUN addgroup \
     --system \
@@ -23,21 +23,19 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && pip install poetry==1.7.1
 
-WORKDIR /app
-
-COPY --chown=ronin:ronin pyproject.toml ./
-COPY --chown=ronin:ronin poetry.lock ./
-
 USER ronin:ronin
 
-RUN poetry install
-
-COPY --chown=ronin:ronin infx_mapping_api ./app
+WORKDIR /app
 
 RUN mkdir ./.oci
+
+COPY --chown=ronin:ronin pyproject.toml poetry.lock ./
+COPY --chown=ronin:ronin resources/pip.conf .config/pip/
+COPY --chown=ronin:ronin infx_mapping_api ./app
+
+RUN poetry install
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
 
-# While Flask App is in dev mode, need to set the host for external visibility
-CMD ["poetry", "run", "flask", "--app", "app.app", "run", "--host", "0.0.0.0"]
+CMD ["poetry", "run", "python", "-m", "app"]
