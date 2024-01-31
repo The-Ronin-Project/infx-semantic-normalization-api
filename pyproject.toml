@@ -16,6 +16,10 @@ name = "internal_pypi"
 url = "https://repo.devops.projectronin.io/repository/pypi/simple/"
 priority = "explicit"
 
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

@@ -33,7 +33,7 @@ COPY --chown=ronin:ronin pyproject.toml poetry.lock ./
 COPY --chown=ronin:ronin resources/pip.conf .config/pip/
 COPY --chown=ronin:ronin infx_mapping_api ./app
 
-RUN poetry install
+RUN poetry install --without dev
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
