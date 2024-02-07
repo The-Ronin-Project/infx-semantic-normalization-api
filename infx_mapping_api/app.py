@@ -1,8 +1,21 @@
 from flask import Flask
 
-app = Flask(__name__)
+
+def create_app():
+    """
+    Initializes and returns the Flask app instance.
+    Sets up configurations and registers routes and error handlers.
+    """
+    app = Flask(__name__)
+
+    @app.get("/ping")
+    def ping():
+        return "pong", 200
+
+    return app
 
 
-@app.get("/ping")
-def ping():
-    return "pong", 200
+application = create_app()
+
+if __name__ == "__main__":
+    application.run(debug=True, host="0.0.0.0", port=5500)

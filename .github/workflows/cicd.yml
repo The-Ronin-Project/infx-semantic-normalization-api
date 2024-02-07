@@ -1,0 +1,58 @@
+name: CICD
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ######################################################
+  # Run tests and (not yet implemented publish coverage)
+  ######################################################
+  test:
+    runs-on: oci-shared
+    # uses: projectronin/github/.github/workflows/python_test.yml
+    # secrets:
+    #   (none at this time)
+    steps:
+      - name: test
+        run: echo "I solemnly swear I am up to no good and have no tests."
+
+  application-image:
+    runs-on: oci-shared
+    needs:
+      - test
+
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: get-version
+        uses: projectronin/github/get-version@get-version/v3
+
+      - name: Push multiplatform application image to Nexus
+        uses: projectronin/github/build-image@build-image/v3
+        with:
+          username: ${{ secrets.NEXUS_DOCKER_USERNAME }}
+          password: ${{ secrets.NEXUS_DOCKER_PASSWORD }}
+          tags: ${{ steps.get-version.outputs.version }}
+
+      - id: set-version
+        uses: projectronin/github/set-version@set-version/v2
+        with:
+          semver: "${{ steps.get-version.outputs.version }}"
+
+    outputs:
+      version: ${{ steps.get-version.outputs.version }}
+
+  deploy_dev:
+    if: github.ref == 'refs/heads/main' || contains(github.ref, 'hotfix/')
+    uses: projectronin/ronin-charts/.github/workflows/deploy.yaml@deploy/v5
+    needs: [application-image]
+    with:
+      environment: dev
+      application: infx-mapping-api
+      tag: ${{ needs.application-image.outputs.version }}
+      commit-sha: ${{ github.sha }}
+    secrets: inherit
+

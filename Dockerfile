@@ -1,21 +1,14 @@
-ARG PYTHON_VERSION=3.9
+FROM docker-proxy.devops.projectronin.io/ronin/base/python-base:1.1.0
 
-FROM docker-proxy.devops.projectronin.io/python:${PYTHON_VERSION}-slim
+EXPOSE 8000
 
-EXPOSE 5000
+ENV PYTHONUNBUFFERED=1 \
+  PYTHONDONTWRITEBYTECODE=1 \
+  # Don't use venv with Poetry so we install dependencies globally
+  POETRY_VIRTUALENVS_CREATE=false
 
-RUN addgroup \
-    --system \
-    --gid 1000 \
-    ronin \
-  && adduser \
-    --home /app \
-    --system \
-    --disabled-password \
-    --uid 1000 \
-    --ingroup ronin \
-    ronin \
-  && chown -R ronin:ronin /app
+# Allow for global Poetry Python dependency installs
+RUN chown -R ronin:ronin /app /usr/local
 
 RUN apt-get update \
   && apt-get install -y build-essential libpq-dev \
@@ -23,21 +16,13 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && pip install poetry==1.7.1
 
-WORKDIR /app
-
-COPY --chown=ronin:ronin pyproject.toml ./
-COPY --chown=ronin:ronin poetry.lock ./
-
 USER ronin:ronin
-
-RUN poetry install
-
-COPY --chown=ronin:ronin infx_mapping_api ./app
 
 RUN mkdir ./.oci
 
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONDONTWRITEBYTECODE 1
+COPY --chown=ronin:ronin pyproject.toml poetry.lock ./
+COPY --chown=ronin:ronin infx_mapping_api ./app
 
-# While Flask App is in dev mode, need to set the host for external visibility
-CMD ["poetry", "run", "flask", "--app", "app.app", "run", "--host", "0.0.0.0"]
+RUN poetry install --without dev
+
+CMD ["python", "-m", "app"]
