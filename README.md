@@ -67,7 +67,7 @@ of the PyCharm window.
     - Target type: Script path
     - Target: (navigate to the local file infx-mapping-api/app/app.py)
     - Application: application
-    - Additional options: `--host=0.0.0.0 --port=5000` (See note on port below.)
+    - Additional options: `--host=0.0.0.0 --port=5500`
     - FLASK_ENV: development
     - FLASK_DEBUG: (check the box)
     - Python interpreter: (should already be correct from "PyCharm setup" above)
@@ -75,10 +75,6 @@ of the PyCharm window.
     - Add content/source roots to PYTHONPATH (check both boxes)
 4. Choose Apply and OK. 
 
-> Note that the Postman `Dev-Local` environment uses port 5000 as the initial value. However,
-> [port 5000 is used by the AirPlay Receiver service on Macbooks](https://developer.apple.com/forums/thread/682332)
-> and may block the application from running locally. Alteration of port configurations may be necessary for local
-> testing.
 
 #### Running from the command line
 
@@ -93,7 +89,9 @@ poetry install
 1. Environment is active when you see that name at the start of the terminal prompt: e.g. `(infx-mapping-api-py3.11) `
 1. If dependencies have changed recently, also run: `poetry install`
 1. Either:
-    - In the terminal session, enter: `poetry run python -m infx_mapping_api.app ` to start the local dev server, or:
+    - In the terminal session, enter: `poetry run python -m infx_mapping_api.app` to start the local dev server, or:
+      - Note that when running from the CLI, you cannot specify the service port (unless you update the param in the `application.run`
+        call in [the code](infx_mapping_api/app.py)).
     - At top right in the PyCharm window, near the Run and Debug icons, select Flask and click either Run or Debug to start the server.
 1. In the terminal console, see messages that Debug mode is on and the Debugger is active.
 1. In Postman, in the Informatics workspace, choose your working environment:
@@ -113,7 +111,7 @@ poetry install
 
 POC quick test:
 ```bash
-curl localhost:5000/ping
+curl localhost:5500/ping
 ```
 
 We use [Pytest](https://docs.pytest.org/en/6.2.x/) for automated testing, Postman for manual testing.
@@ -126,7 +124,7 @@ We use [Pytest](https://docs.pytest.org/en/6.2.x/) for automated testing, Postma
 * Run the container
   * Docker
     ```bash
-      docker run -d -p 127.0.0.1:5000:5000 infx-mapping-api
+      docker run -d -p 127.0.0.1:5500:5500 infx-mapping-api
     ```
   * Docker compose
     ```bash
