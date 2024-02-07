@@ -6,9 +6,9 @@ on:
     branches: [main]
 
 jobs:
-  #####################################################
-  # Run tests and (not yet implemented publish coverage
-  #####################################################
+  ######################################################
+  # Run tests and (not yet implemented publish coverage)
+  ######################################################
   test:
     runs-on: oci-shared
     # uses: projectronin/github/.github/workflows/python_test.yml
@@ -29,12 +29,6 @@ jobs:
 
       - id: get-version
         uses: projectronin/github/get-version@get-version/v3
-
-      - name: Put version into environment
-        id: version_into_environment
-        shell: bash
-        run: |-
-            echo "SERVICE_VERSION=${{ steps.get-version.outputs.version }}" >> "$GITHUB_ENV"
 
       - name: Push multiplatform application image to Nexus
         uses: projectronin/github/build-image@build-image/v3
