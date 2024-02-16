@@ -115,6 +115,10 @@ curl localhost:5500/ping
 ```
 
 We use [Pytest](https://docs.pytest.org/en/6.2.x/) for automated testing, Postman for manual testing.
+* Run automated tests
+  ```bash
+  poetry run pytest
+  ```
 
 #### Local Container Testing
 * Build the docker image
