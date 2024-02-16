@@ -1,5 +1,5 @@
 import pytest
-from infx_mapping_api import app
+from infx_semantic_normalization_api import app
 
 
 @pytest.fixture()
