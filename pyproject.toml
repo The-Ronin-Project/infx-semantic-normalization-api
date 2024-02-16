@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "infx-mapping-api"
+name = "infx-semantic-normalization-api"
 version = "0.0.1"
-description = "INFX Mapping Service"
+description = "INFX Semantic Normalization Service"
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 

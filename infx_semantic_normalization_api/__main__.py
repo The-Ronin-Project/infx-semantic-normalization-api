@@ -5,7 +5,7 @@ import waitress
 
 from .app import create_app
 
-parser = argparse.ArgumentParser(description=f"Run infx-mapping-api: {sys.argv[0]}")
+parser = argparse.ArgumentParser(description=f"Run infx-semantic-normalization-api: {sys.argv[0]}")
 args: argparse.Namespace = parser.parse_args()
 
 

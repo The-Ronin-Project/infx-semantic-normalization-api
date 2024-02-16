@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   app:
-    image: infx-mapping-api
+    image: infx-semantic-normalization-api
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,7 +12,7 @@ services:
 #    environment:
 #      - FLASK_APP=app
     volumes:
-      - './infx_mapping_api:/app/app:rw'
+      - './infx_semantic_normalization_api:/app/app:rw'
     ports:
       - 8000:8000
   

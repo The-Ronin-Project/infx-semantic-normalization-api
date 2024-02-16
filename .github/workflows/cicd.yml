@@ -51,7 +51,7 @@ jobs:
     needs: [application-image]
     with:
       environment: dev
-      application: infx-mapping-api
+      application: infx-semantic-normalization-api
       tag: ${{ needs.application-image.outputs.version }}
       commit-sha: ${{ github.sha }}
     secrets: inherit
