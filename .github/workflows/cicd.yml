@@ -14,8 +14,10 @@ jobs:
     steps:
       - uses: projectronin/github/python-test@sre-28_pythonTest
         with:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
 
 #  application-image:
 #    runs-on: oci-shared
