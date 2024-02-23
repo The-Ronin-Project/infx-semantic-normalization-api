@@ -19,6 +19,8 @@ priority = "explicit"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+coverage = "^7.4.3"
 
 [build-system]
 requires = ["poetry-core"]
