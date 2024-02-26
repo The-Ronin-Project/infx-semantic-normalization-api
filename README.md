@@ -9,11 +9,17 @@ INFX Semantic Normalization Service. Implements service for code mapping.
 
 
 ## Team Conventions
-### Branch naming
 
+### Branch naming
 Our basic convention is INFX-{ticket-number}-lower-case-identifier
 
-### Project Setup
+### Style
+Use [Black](https://black.readthedocs.io/en/stable/)
+```bash
+poetry run black --check
+```
+
+## Project Setup
 
 This project is managed by [Poetry](https://python-poetry.org/).
 
@@ -52,6 +58,9 @@ pyenv <scope> 3.11.7
 - PyCharm IDE
 - Postman
 
+#### Environment setup
+Contact a team member for details about creating your own .env file from our [.env.template](.env.template) and saving
+it in the same folder.
 
 #### PyCharm setup
 1. In PyCharm, open the project. The later versions of PyCharm should recognize it as a Poetry project
@@ -96,8 +105,7 @@ poetry install
 1. In the terminal console, see messages that Debug mode is on and the Debugger is active.
 1. In Postman, in the Informatics workspace, choose your working environment:
    - `Dev-Local` to run the code in your local environment:
-   - `Prod` to run the code currently deployed in Prod
-   - `Dev` to run the code currently deployed in Dev
+   - `DEV infx-semantic-normalization-api` to run the code currently deployed in Dev
    - `Dev-Docker` to run the Docker image in your local machine environment
 1. Then run test calls in Postman.
 1. If you started Flask with Debug, in the PyCharm window you can step through the code running in your virtual environment.
@@ -149,4 +157,3 @@ We use [Pytest](https://docs.pytest.org/en/6.2.x/) for automated testing, Postma
     ```bash
     docker comopose down
     ```
-
