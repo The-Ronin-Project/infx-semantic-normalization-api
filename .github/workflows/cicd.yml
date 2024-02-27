@@ -13,14 +13,14 @@ jobs:
     runs-on: oci-shared
     steps:
       - id: run-tests
-        uses: projectronin/github/python-test@sre-28_pythonTest
+        uses: projectronin/github/python-poetry-test@sre-28_pythonTest
 
       - id: sonarqube-scan
         uses: projectronin/github/sonarqube-scan@sre-28_pythonTest
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   #################################################################
   # Build and push image; should NOT block on failed quality gate
