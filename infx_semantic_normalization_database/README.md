@@ -2,11 +2,7 @@
 
 ## local setup
 
-Recommendation is to just run the docker compose from the root of the project. Access it via:
-```bash
-mysql -h 0.0.0.0 -u db_user -p db_pass
-```
-If you want to play with the DB
+Recommendation is to just run the docker compose from the root of the project, but if you want to play with the DB
 container manually, here ya go.
 
 1. Acquire a mysql server
@@ -27,8 +23,6 @@ grant all privileges on infx_semantic_normalization_api.* to infx_semantic_norma
 
 ```shell
 docker build \
-  --build-arg "CHANGELOG_SOURCE=./changelog" \
-  --build-arg "CHANGELOG_DESTINATION=./changelog" \
   -t infx-semantic-normalization-database:local \
   .
 ```
@@ -37,8 +31,11 @@ docker build \
 
 ```shell
 docker run infx-semantic-normalization-database:local \
-  --url jdbc:mysql://host.docker.internal/infx_semantic_normalization_api \
+  --url jdbc:mysql://<mysql server host>/infx_semantic_normalization_api \
   --username=infx_semantic_normalization_api \
   --password=infx_semantic_normalization_api \
-  --changelog-file=changelog/db.changelog-main.yaml
+  --changelog-file=changelog/changelog-main.yaml
 ```
+
+NOTE: if you're running localhost DB, the mysql server host is `host.docker.internal` as the liquibase container has
+to talk out to the host.

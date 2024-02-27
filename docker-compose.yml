@@ -15,14 +15,12 @@ services:
     build:
       context: infx_semantic_normalization_database
       dockerfile: Dockerfile
-      args:
-        - CHANGELOG_SOURCE=./changelog
-        - CHANGELOG_DESTINATION=./changelog
     command:
       - "--url=jdbc:mysql://db/db"
       - "--username=db_user"
       - "--password=db_pass"
-      - "--changelog-file=changelog/db.changelog-main.yaml"
+      - "--changelog-file=changelog/changelog-main.yaml"
+      - "--contexts=local"
     restart: on-failure
 
   service:
