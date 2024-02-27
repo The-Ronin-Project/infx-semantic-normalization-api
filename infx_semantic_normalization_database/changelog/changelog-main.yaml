@@ -1,0 +1,2 @@
+databaseChangeLog:
+  - include: { file: changelog/000-add-pk-dbchangelog.yaml }
