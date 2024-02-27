@@ -18,8 +18,8 @@ jobs:
       - id: sonarqube-scan
         uses: SonarSource/sonarqube-scan-action@v2
         env:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
   #################################################################
   # Build and push image; should NOT block on failed quality gate
