@@ -14,10 +14,6 @@ jobs:
     steps:
       - id: run-tests
         uses: projectronin/github/python-test@sre-28_pythonTest
-#        with:
-#          sonar-token: ${{ secrets.SONAR_TOKEN }}
-#          sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - id: sonarqube-scan
         uses: projectronin/github/sonarqube-scan@sre-28_pythonTest

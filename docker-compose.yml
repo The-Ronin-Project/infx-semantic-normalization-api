@@ -12,7 +12,7 @@ services:
 #    environment:
 #      - FLASK_APP=app
     volumes:
-      - './infx_semantic_normalization_api:/app/app:rw'
+      - './infx_semantic_normalization_api:/infx_semantic_normalization_api/app:rw'
     ports:
       - 8000:8000
   

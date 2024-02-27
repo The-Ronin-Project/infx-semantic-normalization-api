@@ -5,9 +5,11 @@ from infx_semantic_normalization_api import app
 @pytest.fixture()
 def application():
     application = app.create_app()
-    application.config.update({
-        "TESTING": True,
-    })
+    application.config.update(
+        {
+            "TESTING": True,
+        }
+    )
 
     # other setup can go here
 

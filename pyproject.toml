@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11.7"
 flask = "^3.0.1"
 waitress = "^2.1.2"
+python-decouple = "^3.8"
 
 
 [[tool.poetry.source]]
@@ -21,6 +22,7 @@ priority = "explicit"
 pytest = "^8.0.0"
 pytest-cov = "^4.1.0"
 coverage = "^7.4.3"
+black = "^24.2.0"
 
 [build-system]
 requires = ["poetry-core"]
