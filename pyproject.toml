@@ -29,7 +29,6 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-asyncio_mode = "auto"
 addopts = [
     "--cov",
     "infx_semantic_normalization_api",
