@@ -143,8 +143,10 @@ service will run in production.
 - Start the system: `docker compose up -d`
 - Use the system: `curl localhost:8000/ping`
 - Connect to the database: `mysql -h 127.0.0.1 -P 3306 -u db_user -pdb_pass`
+    - if `3306` conflicts with your local system change the port mapping for the `db` container to `3307:3306` and
+      change the port number in the above connect string
 - Stop the system: `docker compose stop`
-  - OR `docker compose down` if you want to also remove the containers. Note that this will remove your DB data.
+  - OR `docker compose down` if you want to also remove the containers. Note that this will remove your DB data
 
 ### Testing
 
