@@ -2,7 +2,11 @@
 
 ## local setup
 
-Recommendation is to just run the docker compose from the root of the project, but if you want to play with the DB
+Recommendation is to just run the docker compose from the root of the project. Access it via:
+```bash
+mysql -h 0.0.0.0 -u db_user -p db_pass
+```
+If you want to play with the DB
 container manually, here ya go.
 
 1. Acquire a mysql server
