@@ -1,8 +1,29 @@
 version: "3.8"
 
 services:
+  db:
+    image: "docker-proxy.devops.projectronin.io/mysql/mysql-server:8.0"
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "db_user"
+      MYSQL_PASSWORD: "db_pass"
 
-  app:
+  migrations:
+    build:
+      context: infx_semantic_normalization_database
+      dockerfile: Dockerfile
+      args:
+        - CHANGELOG_SOURCE=./changelog
+        - CHANGELOG_DESTINATION=./changelog
+    command:
+      - "--url=jdbc:mysql://db/db"
+      - "--username=db_user"
+      - "--password=db_pass"
+      - "--changelog-file=changelog/db.changelog-main.yaml"
+    restart: on-failure
+
+  service:
     image: infx-semantic-normalization-api
     build:
       context: .
@@ -15,5 +36,7 @@ services:
       - './infx_semantic_normalization_api:/infx_semantic_normalization_api/app:rw'
     ports:
       - 8000:8000
-  
-
+    depends_on:
+      - db
+      - migrations
+    restart: on-failure
