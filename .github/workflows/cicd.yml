@@ -16,17 +16,17 @@ jobs:
         uses: projectronin/github/python-poetry-test@sre-28_pythonTest
 
       - id: sonarqube-scan
-        uses: projectronin/github/sonarqube-scan@sre-28_pythonTest
-        with:
+        uses: SonarSource/sonarqube-scan-action@v2
+        env:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   #################################################################
   # Build and push image; should NOT block on failed quality gate
   #################################################################
   application-image:
     runs-on: oci-shared
+    needs: [test]
 
     if: github.ref == 'refs/heads/main'
     steps:
