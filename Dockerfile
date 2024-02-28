@@ -20,7 +20,8 @@ USER ronin:ronin
 
 RUN mkdir ./.oci
 
-COPY --chown=ronin:ronin pyproject.toml poetry.lock ./
+COPY --chown=ronin:ronin pyproject.toml poetry.lock .
+COPY --chown=ronin:ronin infx_semantic_normalization_api infx_semantic_normalization_api
 
 RUN poetry install --without dev
 
