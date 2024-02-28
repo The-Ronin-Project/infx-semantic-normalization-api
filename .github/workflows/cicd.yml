@@ -13,7 +13,7 @@ jobs:
     runs-on: oci-shared
     steps:
       - id: run-tests
-        uses: projectronin/github/python-poetry-test@sre-28_pythonTest
+        uses: projectronin/github/python-poetry-test@python-poetry-test/v1
 
       - id: sonarqube-scan
         uses: SonarSource/sonarqube-scan-action@v2
