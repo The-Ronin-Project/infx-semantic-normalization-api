@@ -6,22 +6,27 @@ on:
     branches: [main]
 
 jobs:
-  ######################################################
-  # Run tests and (not yet implemented publish coverage)
-  ######################################################
+  #################################################################
+  # Run tests and publish coverage
+  #################################################################
   test:
     runs-on: oci-shared
-    # uses: projectronin/github/.github/workflows/python_test.yml
-    # secrets:
-    #   (none at this time)
     steps:
-      - name: test
-        run: echo "I solemnly swear I am up to no good and have no tests."
+      - id: run-tests
+        uses: projectronin/github/python-poetry-test@python-poetry-test/v1
 
+      - id: sonarqube-scan
+        uses: SonarSource/sonarqube-scan-action@v2
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+  #################################################################
+  # Build and push image; should NOT block on failed quality gate
+  #################################################################
   application-image:
     runs-on: oci-shared
-    needs:
-      - test
+    needs: [test]
 
     if: github.ref == 'refs/heads/main'
     steps:
